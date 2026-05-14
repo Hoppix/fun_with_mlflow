@@ -1,5 +1,5 @@
 
-.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status mlflow-deploy mlflow-delete mlflow-status mlflow-logs buckets-apply buckets-destroy smoke-test
+.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status mlflow-deploy mlflow-delete mlflow-status mlflow-logs buckets-apply buckets-destroy smoke-test all reset
 
 
 
@@ -59,3 +59,16 @@ mlflow-logs:
 
 smoke-test:
 	uv run src/smoke_test.py
+
+
+all: cluster-up miniio-deploy buckets-apply mlflow-deploy smoke-test
+	@echo ""
+	@echo "Stack is up:"
+	@echo "  MLflow UI:     http://localhost:5000"
+	@echo "  MinIO console: http://localhost:9001  (admin / admin123)"
+
+reset:
+	-./scripts/buckets.sh destroy
+	-./scripts/cluster.sh reset
+	@rm -rf terraform/envs/local/.terraform terraform/envs/local/*.tfstate*
+	@echo "Reset complete."
