@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: train-
+  namespace: default
+  labels:
+    app: zeit-mlops
+    component: train
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      labels: { app: zeit-mlops, component: train }
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: train
+          image: zeit-mlops:latest
+          imagePullPolicy: IfNotPresent  # critical for k3d image-import
+          args: ["src.train"]
+          env:
+            - { name: MLFLOW_TRACKING_URI,    value: "http://mlflow.mlflow.svc.cluster.local:5000" }
+            - { name: MLFLOW_S3_ENDPOINT_URL, value: "http://minio.minio.svc.cluster.local:9000" }
+            - { name: MLFLOW_EXPERIMENT_NAME, value: "churn-classifier" }
+            - { name: MLFLOW_MODEL_NAME,      value: "zeit-churn-classifier" }
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom: { secretKeyRef: { name: s3-credentials, key: AWS_ACCESS_KEY_ID } }
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom: { secretKeyRef: { name: s3-credentials, key: AWS_SECRET_ACCESS_KEY } }
+          resources:
+            requests: { cpu: 100m, memory: 256Mi }
+            limits:   { cpu: "1",  memory: 1Gi  }

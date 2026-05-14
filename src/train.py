@@ -3,6 +3,8 @@ import os
 import time
 
 import mlflow
+import numpy as np
+from sklearn.dummy import DummyClassifier
 
 MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
 EXPERIMENT_NAME    = os.getenv("MLFLOW_EXPERIMENT_NAME", "churn-classifier")
@@ -26,11 +28,17 @@ def main() -> None:
             mlflow.log_metric("loss", 1.0 / (epoch + 1), step=epoch)
             time.sleep(0.5)
 
-        with open("/tmp/model.txt", "w") as f:
-            f.write("pretend this is a trained model")
-        mlflow.log_artifact("/tmp/model.txt", artifact_path="model")
+        # Create and train a simple dummy model
+        X = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
+        y = np.array([0, 1, 0, 1])
+        
+        model = DummyClassifier(strategy="most_frequent")
+        model.fit(X, y)
+        
+        # Log the model using mlflow.sklearn
+        mlflow.sklearn.log_model(model, MODEL_NAME)
 
-        mlflow.register_model(f"runs:/{run.info.run_id}/model", MODEL_NAME)
+        mlflow.register_model(f"runs:/{run.info.run_id}/{MODEL_NAME}", MODEL_NAME)
         print(f"done — run {run.info.run_id}")
 
 

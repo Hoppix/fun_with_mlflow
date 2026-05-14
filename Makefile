@@ -1,5 +1,5 @@
 
-.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status mlflow-deploy mlflow-delete mlflow-status mlflow-logs buckets-apply buckets-destroy smoke-test all reset train-local score-local
+.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status mlflow-deploy mlflow-delete mlflow-status mlflow-logs buckets-apply buckets-destroy smoke-test all reset train-local score-local docker-build docker-push
 
 
 
@@ -65,6 +65,14 @@ make train-local:
 
 make score-local:
 	uv run src/score.py
+
+# docker 
+
+make docker-build:
+	./scripts/docker.sh build
+
+make docker-push:
+	./scripts/docker.sh push
 
 
 # one-button commands
