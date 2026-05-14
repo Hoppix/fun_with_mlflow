@@ -1,5 +1,5 @@
 
-.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status mlflow-deploy mlflow-delete mlflow-status mlflow-logs
+.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status mlflow-deploy mlflow-delete mlflow-status mlflow-logs buckets-apply buckets-destroy smoke-test
 
 
 
@@ -18,6 +18,7 @@ cluster-status:
 	./scripts/cluster.sh status
 
 
+
 # minio
 
 miniio-deploy:
@@ -28,6 +29,15 @@ miniio-delete:
 
 miniio-status:
 	./scripts/miniio.sh status
+
+
+# buckets
+
+buckets-apply:
+	./scripts/buckets.sh apply
+
+buckets-destroy:
+	./scripts/buckets.sh destroy
 
 
 # mlflow
