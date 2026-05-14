@@ -1,12 +1,7 @@
 # Fun with MLOps
 
 Local MLOps platform for training and scoring a subscription-churn classifier.
-The entire stack runs on a developer laptop via k3d, with the stateful pieces
-provisioned through Terraform.
-
-This is a deliberately small, end-to-end setup. The goal is to show how the
-pieces fit together — cluster, storage, model tracking, jobs — not to build
-production-grade infrastructure on day one.
+The entire stack runs on a dev machine via k3d, with Terraform managing the stateful resources (object storage buckets) and MLflow for experiment tracking.
 
 ## Notes
 
@@ -46,6 +41,13 @@ make all                 # do it all in one go
 | MinIO console | http://localhost:9001 | `admin` / `admin123` |
 | Cluster health | `make cluster-status` | — |
 | Run smoke test | `make smoke-test` | — |
+
+### Run jobs
+
+```bash
+make train         # runs the training job, logs to MLflow
+make score         # runs the scoring job, logs to MLflow
+```
 
 ### Tear down
 
