@@ -1,5 +1,5 @@
 
-.PHONY: cluster-up cluster-down cluster-reset cluster-status
+.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status
 
 cluster-up:
 	./scripts/cluster.sh up
@@ -12,3 +12,12 @@ cluster-reset:
 
 cluster-status:
 	./scripts/cluster.sh status
+
+miniio-deploy:
+	./scripts/miniio.sh deploy
+
+miniio-delete:
+	./scripts/miniio.sh delete
+
+miniio-status:
+	./scripts/miniio.sh status
