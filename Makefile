@@ -1,5 +1,5 @@
 
-.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status mlflow-deploy mlflow-delete mlflow-status mlflow-logs buckets-apply buckets-destroy smoke-test all reset
+.PHONY: cluster-up cluster-down cluster-reset cluster-status miniio-deploy miniio-delete miniio-status mlflow-deploy mlflow-delete mlflow-status mlflow-logs buckets-apply buckets-destroy smoke-test all reset train-local score-local
 
 
 
@@ -55,10 +55,19 @@ mlflow-logs:
 	./scripts/mlflow.sh logs
 
 
-# tests
+# python
 
 smoke-test:
 	uv run src/smoke_test.py
+
+make train-local:
+	uv run src/train.py 
+
+make score-local:
+	uv run src/score.py
+
+
+# one-button commands
 
 
 all: cluster-up miniio-deploy buckets-apply mlflow-deploy smoke-test
