@@ -1,11 +1,11 @@
 module "mlflow_artifacts" {
-  source        = "../../modules/bucket"
+  source        = "./modules/bucket"
   name          = "mlflow-artifacts"
   force_destroy = true
 }
 
 module "training_data" {
-  source        = "../../modules/bucket"
+  source        = "./modules/bucket"
   name          = "training-data"
   force_destroy = true
 
@@ -16,7 +16,7 @@ module "training_data" {
 }
 
 module "scores" {
-  source        = "../../modules/bucket"
+  source        = "./modules/bucket"
   name          = "scores"
   force_destroy = true
 }

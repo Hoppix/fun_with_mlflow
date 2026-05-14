@@ -7,7 +7,7 @@ log() { echo -e "\033[36m[minio]\033[0m $*"; }
 
 cmd_deploy() {
   log "applying manifests"
-  kubectl apply -f k8s/miniio.yaml
+  kubectl apply -f k8s/minio/miniio.yaml
 
   log "waiting for minio to become ready (up to 3 min)"
   kubectl wait --for=condition=available deployment/minio \
@@ -20,7 +20,7 @@ cmd_deploy() {
 
 cmd_delete() {
   log "deleting minio (including PVC — all data lost)"
-  kubectl delete -f k8s/miniio.yaml --ignore-not-found
+  kubectl delete -f k8s/minio/miniio.yaml --ignore-not-found
 }
 
 cmd_status() {
