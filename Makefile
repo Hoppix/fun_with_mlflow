@@ -74,6 +74,20 @@ make docker-build:
 make docker-push:
 	./scripts/docker.sh push
 
+.PHONY: docker-build docker-import docker-push train score jobs-list jobs-clean
+
+make train:
+	./scripts/dags.sh train
+
+make score:
+	./scripts/dags.sh score
+
+make jobs-list:
+	./scripts/dags.sh list
+
+make jobs-clean:
+	./scripts/dags.sh clean
+
 
 # one-button commands
 

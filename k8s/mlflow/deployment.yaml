@@ -23,6 +23,7 @@ spec:
             - --port=5000
             - --backend-store-uri=sqlite:////mlflow/backend/mlflow.db
             - --default-artifact-root=s3://mlflow-artifacts/
+            - --allowed-hosts=*
           ports:
             - { name: http, containerPort: 5000 }
           env:

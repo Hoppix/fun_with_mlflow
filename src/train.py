@@ -11,7 +11,7 @@ EXPERIMENT_NAME    = os.getenv("MLFLOW_EXPERIMENT_NAME", "churn-classifier")
 MODEL_NAME         = os.getenv("MLFLOW_MODEL_NAME", "nase-churn-classifier")
 
 os.environ["MLFLOW_TRACKING_URI"]      = "http://localhost:5000"
-os.environ["MLFLOW_S3_ENDPOINT_URL"]   = "http://localhost:9000"
+# os.environ["MLFLOW_S3_ENDPOINT_URL"]   = "http://localhost:9000"
 os.environ["AWS_ACCESS_KEY_ID"]        = "admin"
 os.environ["AWS_SECRET_ACCESS_KEY"]    = "admin123"
 

@@ -29,5 +29,7 @@ COPY src/ ./src/
 RUN useradd --create-home --uid 1000 appuser && chown -R appuser /app
 USER appuser
 
+ARG COMMAND="src.train"
+
 ENTRYPOINT ["python", "-m"]
-CMD ["src.train"]
+CMD [${COMMAND}]
