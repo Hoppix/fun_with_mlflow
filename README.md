@@ -18,7 +18,7 @@ production-grade infrastructure on day one.
 
 ### Prerequisites
 
-- Docker Desktop (WSL2 backend on Windows works fine)
+- Docker Desktop (WSL2 backend on Windows, always hacky) 
 - `k3d` ≥ v5
 - `kubectl`
 - `terraform` ≥ 1.6
